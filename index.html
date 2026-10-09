@@ -317,7 +317,7 @@
       font-size: 1.2rem;
     }
 
-    /* قسم البطريق والعداد */
+    /* قسم العداد */
     .penguin-section {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -326,38 +326,6 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-    }
-
-    .penguin-wrapper {
-      position: relative;
-      width: 160px;
-      height: 170px;
-      margin: 0 auto 10px auto;
-    }
-
-    .penguin-svg {
-      width: 100%;
-      height: 100%;
-      animation: kissBlow 2.5s infinite ease-in-out;
-    }
-
-    @keyframes kissBlow {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.04) rotate(-2deg); }
-    }
-
-    .floating-heart {
-      position: absolute;
-      color: #ff4081;
-      font-size: 1.4rem;
-      opacity: 0;
-      animation: heartFly 2.2s infinite ease-out;
-    }
-
-    @keyframes heartFly {
-      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-      40% { opacity: 1; transform: translate(25px, -25px) scale(1.2); }
-      100% { opacity: 0; transform: translate(45px, -60px) scale(0.8); }
     }
 
     .counter-box {
@@ -413,6 +381,72 @@
       color: var(--text-sub);
       margin-top: 10px;
       line-height: 1.5;
+    }
+
+    /* حركة البطريق المجسّم 3D للرسالة */
+    .penguin-3d-stage {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 800px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .penguin-3d-actor {
+      width: 110px;
+      height: 120px;
+      animation: penguin3DAction 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes penguin3DAction {
+      0% {
+        opacity: 0;
+        transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 100px, -200px) rotateY(0deg);
+      }
+      15% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1) translate3d(0, 0, 50px) rotateY(360deg);
+      }
+      35% {
+        transform: scale3d(1, 1, 1) translate3d(0, -10px, 0) rotateZ(-10deg);
+      }
+      50% {
+        transform: scale3d(1.35, 1.35, 1.35) translate3d(0, 5px, 120px) rotateX(15deg);
+      }
+      70% {
+        transform: scale3d(0.9, 0.9, 0.9) translate3d(-60px, 10px, -30px) rotateY(-180deg);
+      }
+      88% {
+        opacity: 1;
+        transform: scale3d(0.5, 0.5, 0.5) translate3d(120px, -80px, -100px) rotateY(180deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale3d(0, 0, 0) translate3d(150px, -100px, -300px) rotateY(360deg);
+      }
+    }
+
+    /* البوسة المندفعة للشاشة */
+    .screen-kiss-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 3rem;
+      opacity: 0;
+      pointer-events: none;
+      animation: bigKissPulse 6s ease-in-out infinite;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes bigKissPulse {
+      0%, 40% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+      50% { opacity: 0.95; transform: translate(-50%, -50%) scale(2.8); filter: drop-shadow(0 0 20px #ff4081); }
+      65%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(3.5); filter: blur(10px); }
     }
 
     /* قسم الرسالة */
@@ -498,11 +532,12 @@
       <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
       <div class="gallery-container">
         <div class="photo-card">
-          <img src="Rose.jpeg" alt="وردايتي الاعشقها">
-          <p>وردايتي الاعشقها❤️‍🩹</p>
+          <img src="Rose.jpeg" alt="الورد التحبينه انتي">
+          <p>الورد التحبينه انتي</p>
         </div>
         <div class="photo-card">
-          <img src="hanunti.jpeg" alt="حنين">
+          <img src="hanunti.jpeg" alt="وردايتي الاعشقها❤️‍🩹">
+          <p>وردايتي الاعشقها❤️‍🩹</p>
         </div>
       </div>
     </div>
@@ -528,28 +563,6 @@
     <div id="section-hearts" class="section-page">
       <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
       <div class="penguin-section">
-        <div class="penguin-wrapper">
-          <svg class="penguin-svg" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="62" cy="155" rx="14" ry="7" fill="#ff9800"/>
-            <ellipse cx="98" cy="155" rx="14" ry="7" fill="#ff9800"/>
-            <path d="M40 80 C 35 130 45 152 80 152 C 115 152 125 130 120 80 C 120 40 105 25 80 25 C 55 25 40 40 40 80 Z" fill="#263238"/>
-            <path d="M52 85 C 48 125 55 145 80 145 C 105 145 112 125 108 85 C 108 55 98 42 80 42 C 62 42 52 55 52 85 Z" fill="#ffffff"/>
-            <ellipse cx="68" cy="65" rx="5" ry="7" fill="#000"/>
-            <circle cx="66" cy="63" r="2" fill="#fff"/>
-            <ellipse cx="92" cy="65" rx="5" ry="7" fill="#000"/>
-            <circle cx="90" cy="63" r="2" fill="#fff"/>
-            <ellipse cx="60" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
-            <ellipse cx="100" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
-            <polygon points="75,70 85,70 80,78" fill="#ffa726"/>
-            <path d="M78 78 Q 80 82 82 78" fill="none" stroke="#e65100" stroke-width="1.5"/>
-            <path d="M42 85 Q 52 105 65 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
-            <path d="M118 85 Q 108 105 95 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
-          </svg>
-
-          <div class="floating-heart" style="top: 25%; right: 15%;">🤍</div>
-          <div class="floating-heart" style="top: 15%; right: 5%; animation-delay: 0.7s;">💗</div>
-        </div>
-
         <h3 style="color: var(--accent-color); margin-bottom: 5px;">عداد ايامي و اني بدون روحي 😔</h3>
         <p style="font-size: 0.9rem; color: var(--text-sub); margin-top: 5px;">
           صارلنه هلگد بعاد عن بعض و ان شاء الله ما تطول هاي المدة اكثر
@@ -573,17 +586,48 @@
       </div>
     </div>
 
-    <!-- قسم الرسالة -->
+    <!-- قسم الرسالة مع أنيميشن البطريق المجسم -->
     <div id="section-letter" class="section-page">
       <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
       <div class="penguin-section">
+
+        <!-- حركية البطريق ثلاثي الأبعاد والقفز والبوسة -->
+        <div class="penguin-3d-stage">
+          <div class="screen-kiss-heart">💋</div>
+          <svg class="penguin-3d-actor" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="gradBody" cx="30%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#37474f"/>
+                <stop offset="100%" stop-color="#102027"/>
+              </radialGradient>
+              <radialGradient id="gradBelly" cx="40%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#cfd8dc"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="62" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <ellipse cx="98" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <path d="M40 80 C 35 130 45 152 80 152 C 115 152 125 130 120 80 C 120 40 105 25 80 25 C 55 25 40 40 40 80 Z" fill="url(#gradBody)"/>
+            <path d="M52 85 C 48 125 55 145 80 145 C 105 145 112 125 108 85 C 108 55 98 42 80 42 C 62 42 52 55 52 85 Z" fill="url(#gradBelly)"/>
+            <ellipse cx="68" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="66" cy="63" r="2" fill="#fff"/>
+            <ellipse cx="92" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="90" cy="63" r="2" fill="#fff"/>
+            <ellipse cx="60" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <ellipse cx="100" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <polygon points="75,70 85,70 80,78" fill="#ffa726"/>
+            <path d="M42 85 Q 52 105 65 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+            <path d="M118 85 Q 108 105 95 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <h3 style="color: var(--accent-color); margin-bottom: 5px;">كلام حاب اگوله الج 💌</h3>
         <p style="color: var(--pink-glow); font-size: 1.1rem; font-weight: 600; margin-top: 10px;">
           باباتي حبيبة روحي نجمايتي
         </p>
 
-        <div class="message-text">
-حالياً وللابد حنونتي صرتيلي اعز ما املك وأغلى ما املك انتي روحي كلها دنيتي سندي املي بالحياة ملجأي و البيت الدافي لروحي طمأنينتي و اهلي و راحتي و my safe home و كلشي صرتي بحياتي انتي السبب الوحيد الي يغير مودي دائماً و الي يخليني احب روحي اكثر والوحيده الي دائماً ببالي و ما تطلع من راسي الوحيده الي اخاف عليها اكثر من روحي لان بدونها اني ولاشي حنوني انتي احلى شي صار بحياتي سيف بعمره ما حب شخص لهاي الدرجه بالواقع اما عالنت ف جنت مستحيل احب شخص اصلا و انتي خليتي المستحيل يصير شي عادي و كدرت احبج بشكل يعني صدك محد يكدر يعرفه غير الله سبحانه و محد حرفيا محد لا بالواقع ولا اونلاين و حتى لو يكون اقرب شخص الي و اشوفه يومياً هم ما راح يخليني احبه بكد ما حبيتج انتي من صدك زرعتي الامل بروحي خليتيني انتظرچ خليتيني اصبر رغم اكره الصبر خليتيني اسولف كلشي و اني مرتاح و انتي اكثر وحده تعرفين اني مااحب اسولف عن البداخلي اغار عليج من اصغر شي بالدنيه وغيرتي توجع و ادري بيج الي اصلاً بس هم اغار مااريد احد يحس بالجاي احسه وياج لهل درجة اني مهووس بيج و اريدج اعشقج حنين اعشقج هواي اتمنى ما اخسرج اتمنى من كل كلبي ربي يديمج و يحفظج الي طول عمري حبيبة روحي و عمري بنوتة گلبي انتي.
+        <div class="message-text" id="customMessage">
+من اللحظة الي حبيتج بيها وللابد حنونتي صرتيلي اعز ما املك وأغلى ما املك انتي روحي كلها دنيتي سندي املي بالحياة ملجأي و البيت الدافي لروحي طمأنينتي و اهلي و راحتي و my safe home و كلشي صرتي بحياتي انتي السبب الوحيد الي يغير مودي دائماً و الي يخليني احب روحي اكثر والوحيده الي دائماً ببالي و ما تطلع من راسي الوحيده الي اخاف عليها اكثر من روحي لان بدونها اني ولاشي حنوني انتي احلى شي صار بحياتي سيف بعمره ما حب شخص لهاي الدرجه بالواقع اما عالنت ف جنت مستحيل احب شخص اصلا و انتي خليتي المستحيل يصير شي عادي و كدرت احبج بشكل يعني صدك محد يكدر يعرفه غير الله سبحانه و محد حرفيا محد لا بالواقع ولا اونلاين و حتى لو يكون اقرب شخص الي و اشوفه يومياً هم ما راح يخليني احبه بكد ما حبيتج انتي من صدك زرعتي الامل بروحي خليتيني انتظرچ خليتيني اصبر رغم اكره الصبر خليتيني اسولف كلشي و اني مرتاح و انتي اكثر وحده تعرفين اني مااحب اسولف عن البداخلي اغار عليج من اصغر شي بالدنيه وغيرتي توجع لان ادري بيج الي اصلاً بس هم اغار مااريد احد يحس بالجاي احسه وياج لهل درجة اني مهووس بيج و اريدج اعشقج حنين اعشقج هواي اتمنى ما اخسرج اتمنى من كل كلبي ربي يديمج و يحفظج الي طول عمري حبيبة روحي و عمري بنوتة گلبي انتي.
         </div>
 
         <div class="signature">
@@ -597,7 +641,6 @@
   <script>
     function id(elemId) { return document.getElementById(elemId); }
 
-    // النجوم
     function createStars() {
       const container = id('starsContainer');
       if(!container) return;
