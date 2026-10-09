@@ -805,7 +805,10 @@
     loadPlaylist();
 
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 14);
+startDate.setDate(startDate.getDate() - 14);
+startDate.setHours(startDate.getHours() - 1);
+startDate.setMinutes(startDate.getMinutes() - 57);
+
     let isStopped = false;
 
     function updateCounter() {
