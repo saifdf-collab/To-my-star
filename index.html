@@ -150,7 +150,7 @@
       font-weight: 700;
     }
 
-    /* الأزرار الرئيسية - نصوص رئيسية فقط بدون وصف */
+    /* الأزرار الرئيسية */
     .menu-grid {
       display: flex;
       flex-direction: column;
@@ -190,4 +190,530 @@
       border: none;
       color: var(--text-sub);
       font-size: 1rem;
-      display
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      align-self: flex-start;
+      padding: 5px 0;
+    }
+
+    /* بستان تفنوسة */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .photo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .photo-card p {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+    }
+
+    /* عالمنا الخاص - سنوبي */
+    .snoopy-wrapper {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .snoopy-svg {
+      width: 160px;
+      height: 180px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+      animation: floatSnoopy 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSnoopy {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    .snoopy-text {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-top: 5px;
+    }
+
+    .playlist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .track-item.active {
+      border-color: var(--pink-glow);
+      background: rgba(255, 128, 171, 0.15);
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .track-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .track-artist {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .play-icon {
+      font-size: 1.3rem;
+    }
+
+    /* قسم البطريق والعداد */
+    .penguin-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .penguin-wrapper {
+      position: relative;
+      width: 160px;
+      height: 170px;
+      margin: 0 auto 10px auto;
+    }
+
+    .penguin-svg {
+      width: 100%;
+      height: 100%;
+      animation: kissBlow 2.5s infinite ease-in-out;
+    }
+
+    @keyframes kissBlow {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.04) rotate(-2deg); }
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff4081;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: heartFly 2.2s infinite ease-out;
+    }
+
+    @keyframes heartFly {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+      40% { opacity: 1; transform: translate(25px, -25px) scale(1.2); }
+      100% { opacity: 0; transform: translate(45px, -60px) scale(0.8); }
+    }
+
+    .counter-box {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    .counter-title {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+
+    .counter-digits {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .counter-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .counter-item span {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .message-text {
+      line-height: 1.7;
+      font-size: 1.05rem;
+      color: #eceff1;
+      text-align: justify;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- خلفية النجوم -->
+  <div class="stars-container" id="starsContainer"></div>
+
+  <div class="app-container">
+
+    <!-- شاشة القفل -->
+    <div id="lock-screen">
+      <div class="lock-card">
+        <h2>عالم حنين 🤍</h2>
+        <div class="passcode-inputs">
+          <input type="password" maxlength="1" id="p1" autofocus onkeyup="moveFocus(1, 'p2', '')">
+          <input type="password" maxlength="1" id="p2" onkeyup="moveFocus(2, 'p3', 'p1')">
+          <input type="password" maxlength="1" id="p3" onkeyup="moveFocus(3, 'p4', 'p2')">
+          <input type="password" maxlength="1" id="p4" onkeyup="moveFocus(4, '', 'p3')">
+        </div>
+        <div class="error-msg" id="errorMsg"></div>
+      </div>
+    </div>
+
+    <!-- الشاشة الرئيسية -->
+    <div id="main-screen">
+      <div class="header-title">
+        <h1>حسنائي 🍦</h1>
+      </div>
+
+      <div class="menu-grid">
+        <button class="menu-btn" onclick="openSection('garden')">
+          <span>بستان تفنوسة 🌹</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('music')">
+          <span>عالمنا الخاص 🎵</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('hearts')">
+          <span>عداد هموم قلبي 🤍</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('letter')">
+          <span>رسالتي لِك 💌</span>
+          <span>←</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- قسم بستان تفنوسة -->
+    <div id="section-garden" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="gallery-container">
+        <div class="photo-card">
+          <img src="bouquet.jpg" alt="الورد الي تحبينه">
+          <p>الورد الي تحبينه</p>
+        </div>
+        <div class="photo-card">
+          <img src="haneen.jpg" alt="حسنائي">
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم عالمنا الخاص (الأغاني) -->
+    <div id="section-music" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      
+      <div class="snoopy-wrapper">
+        <!-- سنوبي لابس سماعات أذن أزرق ومحتضن القرص الأزرق ومستمتع -->
+        <svg class="snoopy-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- خلفية ملاحظات موسيقية طايرة -->
+          <path d="M165 40 Q 170 35 175 42 T 170 55" fill="none" stroke="#2196f3" stroke-width="2"/>
+          <text x="160" y="30" fill="#2196f3" font-size="16">♪</text>
+          <text x="140" y="45" fill="#64b5f6" font-size="12">♫</text>
+
+          <!-- جسم ورأس سنوبي -->
+          <!-- الأرجل -->
+          <ellipse cx="75" cy="195" rx="18" ry="10" fill="#fff" stroke="#000" stroke-width="3"/>
+          <ellipse cx="120" cy="195" rx="18" ry="10" fill="#fff" stroke="#000" stroke-width="3"/>
+          <!-- الجسم -->
+          <path d="M60 140 Q 55 190 80 190 L 120 190 Q 140 190 135 140 Z" fill="#fff" stroke="#000" stroke-width="3"/>
+          <!-- الأيدي ماسكة القرص -->
+          <ellipse cx="68" cy="145" rx="10" ry="14" fill="#fff" stroke="#000" stroke-width="3" transform="rotate(-20 68 145)"/>
+          <ellipse cx="128" cy="145" rx="10" ry="14" fill="#fff" stroke="#000" stroke-width="3" transform="rotate(20 128 145)"/>
+
+          <!-- القرص الموسيقي الأزرق -->
+          <circle cx="98" cy="148" r="32" fill="#1e88e5" stroke="#000" stroke-width="3"/>
+          <circle cx="98" cy="148" r="22" fill="#1565c0"/>
+          <circle cx="98" cy="148" r="8" fill="#fff" stroke="#000" stroke-width="2"/>
+          <circle cx="98" cy="148" r="2" fill="#000"/>
+
+          <!-- الرأس -->
+          <path d="M65 95 C 45 95 40 70 65 60 C 80 50 125 50 140 70 C 150 85 135 105 110 105 C 90 105 75 95 65 95 Z" fill="#fff" stroke="#000" stroke-width="3.5"/>
+          <!-- الأنف -->
+          <ellipse cx="138" cy="78" rx="8" ry="6" fill="#000"/>
+          <!-- العين مغمضة باستمتاع -->
+          <path d="M98 72 Q 106 66 114 72" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+          <!-- الابتسامة -->
+          <path d="M105 88 Q 118 92 125 84" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- الأذن السوداء خلف السماعة -->
+          <path d="M65 72 Q 50 85 58 115 Q 68 120 72 95 Z" fill="#000"/>
+
+          <!-- سماعة الأذن الزرقاء الكبيرة -->
+          <path d="M65 42 C 60 15 115 15 115 45" fill="none" stroke="#0d47a1" stroke-width="8" stroke-linecap="round"/>
+          <!-- وسادة السماعة اليسرى -->
+          <rect x="52" y="55" width="22" height="42" rx="10" fill="#1976d2" stroke="#000" stroke-width="3"/>
+          <!-- وسادة السماعة اليمنى -->
+          <rect x="110" y="52" width="18" height="38" rx="8" fill="#1976d2" stroke="#000" stroke-width="3"/>
+        </svg>
+
+        <div class="snoopy-text">واسمعيها وي سنوبي 🐾</div>
+      </div>
+
+      <div class="playlist" id="playlist">
+        <!-- سيتم توليد الأغاني عبر JS -->
+      </div>
+      <audio id="audioPlayer"></audio>
+    </div>
+
+    <!-- قسم عداد هموم قلبي -->
+    <div id="section-hearts" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="penguin-section">
+        <div class="penguin-wrapper">
+          <!-- رسم بطريق كيوت SVG يسوي بوسة بالهوا -->
+          <svg class="penguin-svg" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+            <!-- القدمين -->
+            <ellipse cx="62" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <ellipse cx="98" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <!-- الجسم الخلفي -->
+            <path d="M40 80 C 35 130 45 152 80 152 C 115 152 125 130 120 80 C 120 40 105 25 80 25 C 55 25 40 40 40 80 Z" fill="#263238"/>
+            <!-- البطن الأبيض -->
+            <path d="M52 85 C 48 125 55 145 80 145 C 105 145 112 125 108 85 C 108 55 98 42 80 42 C 62 42 52 55 52 85 Z" fill="#ffffff"/>
+            <!-- العينين الكيوت -->
+            <ellipse cx="68" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="66" cy="63" r="2" fill="#fff"/>
+            <ellipse cx="92" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="90" cy="63" r="2" fill="#fff"/>
+            <!-- خدود وردية -->
+            <ellipse cx="60" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <ellipse cx="100" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <!-- المنقار يرسل بوسة -->
+            <polygon points="75,70 85,70 80,78" fill="#ffa726"/>
+            <path d="M78 78 Q 80 82 82 78" fill="none" stroke="#e65100" stroke-width="1.5"/>
+            <!-- الأجنحة مرفوعة لحركة البوسة -->
+            <path d="M42 85 Q 52 105 65 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+            <path d="M118 85 Q 108 105 95 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+
+          <!-- قلوب طائرة -->
+          <div class="floating-heart" style="top: 25%; right: 15%;">🤍</div>
+          <div class="floating-heart" style="top: 15%; right: 5%; animation-delay: 0.7s;">💗</div>
+        </div>
+
+        <h3 style="color: var(--accent-color); margin-bottom: 5px;">كم سنة وياج؟ 🤍</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sub);">العداد يحسب الأيام واللحظات اللي نورتي بيها حياتي</p>
+        
+        <div class="counter-box">
+          <div class="counter-title">مرّ على وجودكِ في حياتي:</div>
+          <div class="counter-digits">
+            <div class="counter-item"><div id="days">0</div><span>يوم</span></div>
+            <div class="counter-item"><div id="hours">0</div><span>ساعة</span></div>
+            <div class="counter-item"><div id="minutes">0</div><span>دقيقة</span></div>
+            <div class="counter-item"><div id="seconds">0</div><span>ثانية</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الرسالة -->
+    <div id="section-letter" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="penguin-section">
+        <h3 style="color: var(--accent-color); margin-bottom: 15px;">إلى حنيني الصغير 🍦</h3>
+        <div class="message-text">
+          حسنائي وحبيبتي والوردة الي تحبيها، سويت لكِ هذا العالم النازك البسيط حتى يكون ملجأكِ الخاص بأي وقت. تسمعين بيه أغانينا، وتشوفين بيه الورد الي تحبينه، وتتذكرين دايماً شكد إنتي شي عظيم بحياتي.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // إنشاء خلفية النجوم
+    function createStars() {
+      const container = id('starsContainer');
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+        container.appendChild(star);
+      }
+    }
+    createStars();
+
+    function id(elemId) { return document.getElementById(elemId); }
+
+    // التحكم بالباسورد
+    function moveFocus(current, nextId, prevId) {
+      const currentEl = id('p' + current);
+      if (currentEl.value.length === 1 && nextId) {
+        id(nextId).focus();
+      }
+      checkPasscode();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace') {
+        const active = document.activeElement;
+        if (active && active.id && active.id.startsWith('p') && active.value === '') {
+          const num = parseInt(active.id.replace('p', ''));
+          if (num > 1) {
+            const prev = id('p' + (num - 1));
+            prev.focus();
+            prev.value = '';
+          }
+        }
+      }
+    });
+
+    function checkPasscode() {
+      const pass = id('p1').value + id('p2').value + id('p3').value + id('p4').value;
+      if (pass.length === 4) {
+        if (pass === '0624') {
+          id('lock-screen').style.display = 'none';
+          id('main-screen').style.display = 'flex';
+          id('errorMsg').innerText = '';
+        } else {
+          id('errorMsg').innerText = 'ولچ عصري مخچ شوي 😂';
+          setTimeout(() => {
+            id('p1').value = ''; id('p2').value = '';
+            id('p3').value = ''; id('p4').value = '';
+            id('p1').focus();
+          }, 800);
+        }
+      }
+    }
+
+    // التناقل بين الأقسام
+    function openSection(sec) {
+      id('main-screen').style.display = 'none';
+      document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
+      id('section-' + sec).style.display = 'flex';
+    }
+
+    function goHome() {
+      document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
+      id('main-screen').style.display = 'flex';
+    }
+
+    // قائمة الأغاني بالأسماء المرفوعة على GitHub
+    const songs = [
+      { title: "مولاتي", artist: "BigSam", src: "Mp3.1.mp3" },
+      { title: "عدم", artist: "غيث صباح", src: "Mp3.2.mp3" },
+      { title: "دعوة أمي", artist: "علي صابر", src: "Mp3.3.mp3" },
+      { title: "Those Eyes", artist: "New West", src: "Mp3.4.mp3" },
+      { title: "أحلى حاجة فيكي", artist: "محمد حماقي", src: "Mp3.5.mp3" },
+      { title: "حنيت", artist: "أحمد المصلاوي", src: "Mp3.6.mp3" },
+      { title: "كلمة", artist: "رامي صبري", src: "Mp3.7.mp3" },
+      { title: "Lovesong", artist: "Adele", src: "Mp3.8.mp3" }
+    ];
+
+    let currentTrack = -1;
+    const audio = id('audioPlayer');
+
+    function loadPlaylist() {
+      const container = id('playlist');
+      container.innerHTML = '';
+      songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'track-item' + (currentTrack === index ? ' active' : '');
+        item.onclick = () => playSong(index);
+        item.innerHTML = `
+          <div class="track-info">
+            <div class="track-title">${song.title}</div>
+            <div class="track-artist">${song.artist}</div>
+          </div>
+          <div class="play-icon">${currentTrack === index && !audio.paused ? '⏸' : '▶'}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function playSong(index) {
+      if (currentTrack === index) {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      } else {
+        currentTrack = index;
+        audio.src = songs[index].src;
+        audio.play();
+      }
+      loadPlaylist();
+    }
+
+    audio.onended = () => {
+      currentTrack = (currentTrack + 1) % songs.length;
+      playSong(currentTrack);
+    };
+
+    loadPlaylist();
+
+    // العداد
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 14);
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      id('days').innerText = days;
+      id('hours').innerText = hours;
+      id('minutes').innerText = minutes;
+      id('seconds').innerText = seconds;
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
+</body>
+</html>
