@@ -66,14 +66,15 @@
       min-height: 100vh;
       padding: 20px;
       position: relative;
-      z-index: 1;
+      z-index: 10;
       display: flex;
       flex-direction: column;
+      justify-content: center;
     }
 
     /* شاشة القفل */
     #lock-screen {
-      flex: 1;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -103,4 +104,655 @@
       margin-bottom: 25px;
     }
 
-    .
+    .passcode-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 15px;
+      direction: ltr;
+    }
+
+    .passcode-inputs input {
+      width: 50px;
+      height: 60px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .passcode-inputs input:focus {
+      border-color: var(--pink-glow);
+      box-shadow: 0 0 10px rgba(255, 128, 171, 0.4);
+    }
+
+    .error-msg {
+      color: #ff80ab;
+      font-size: 0.95rem;
+      min-height: 24px;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .hint-msg {
+      color: #ffd54f;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+      background: rgba(255, 213, 79, 0.1);
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px dashed rgba(255, 213, 79, 0.3);
+    }
+
+    /* الشاشة الرئيسية */
+    #main-screen {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header-title {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .header-title h1 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .welcome-note {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 15px;
+      border-radius: 16px;
+      text-align: justify;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .menu-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+      padding: 18px 20px;
+      border-radius: 18px;
+      color: var(--text-main);
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .menu-btn:active {
+      transform: scale(0.98);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* الأقسام الصفحات */
+    .section-page {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      align-self: flex-start;
+      padding: 5px 0;
+    }
+
+    /* بستان تفنوسة */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .photo-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .photo-card p {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+    }
+
+    /* قسم الأغاني وسنوبي */
+    .snoopy-wrapper {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .snoopy-img {
+      width: 180px;
+      height: auto;
+      border-radius: 16px;
+      animation: floatSnoopy 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatSnoopy {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    .snoopy-text {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-top: 10px;
+      line-height: 1.5;
+      padding: 0 10px;
+    }
+
+    .playlist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .track-item.active {
+      border-color: var(--pink-glow);
+      background: rgba(255, 128, 171, 0.15);
+    }
+
+    .track-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .play-icon {
+      font-size: 1.2rem;
+    }
+
+    /* قسم البطريق والعداد */
+    .penguin-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .penguin-wrapper {
+      position: relative;
+      width: 160px;
+      height: 170px;
+      margin: 0 auto 10px auto;
+    }
+
+    .penguin-svg {
+      width: 100%;
+      height: 100%;
+      animation: kissBlow 2.5s infinite ease-in-out;
+    }
+
+    @keyframes kissBlow {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.04) rotate(-2deg); }
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff4081;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: heartFly 2.2s infinite ease-out;
+    }
+
+    @keyframes heartFly {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+      40% { opacity: 1; transform: translate(25px, -25px) scale(1.2); }
+      100% { opacity: 0; transform: translate(45px, -60px) scale(0.8); }
+    }
+
+    .counter-box {
+      margin-top: 15px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    .counter-digits {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .counter-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .counter-item span {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .stop-btn-box {
+      margin-top: 20px;
+    }
+
+    .stop-btn {
+      background: rgba(255, 64, 129, 0.2);
+      border: 1px solid var(--pink-glow);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .stop-btn:active {
+      transform: scale(0.95);
+    }
+
+    .stop-text {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* قسم الرسالة */
+    .message-text {
+      line-height: 1.85;
+      font-size: 1.05rem;
+      color: #eceff1;
+      text-align: justify;
+      margin-top: 15px;
+      white-space: pre-line;
+    }
+
+    .signature {
+      margin-top: 25px;
+      font-size: 0.95rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      border-top: 1px solid var(--card-border);
+      padding-top: 15px;
+      text-align: center;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- خلفية النجوم -->
+  <div class="stars-container" id="starsContainer"></div>
+
+  <div class="app-container">
+
+    <!-- شاشة القفل -->
+    <div id="lock-screen">
+      <div class="lock-card">
+        <h2>هله بحبيبة روحي 🤍</h2>
+        <p class="sub-lock">كرزايتي الباسورد بلا زحمة</p>
+        <div class="passcode-inputs">
+          <input type="password" maxlength="1" id="p1" autofocus onkeyup="moveFocus(1, 'p2', '')">
+          <input type="password" maxlength="1" id="p2" onkeyup="moveFocus(2, 'p3', 'p1')">
+          <input type="password" maxlength="1" id="p3" onkeyup="moveFocus(3, 'p4', 'p2')">
+          <input type="password" maxlength="1" id="p4" onkeyup="moveFocus(4, '', 'p3')">
+        </div>
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="hint-msg" id="hintMsg">💡 تلميح: حبيبة عمري اني يا تاريخ احبه</div>
+      </div>
+    </div>
+
+    <!-- الشاشة الرئيسية -->
+    <div id="main-screen">
+      <div class="header-title">
+        <h1>هله بنوتة گلبي 🍦</h1>
+      </div>
+
+      <div class="welcome-note">
+        شوفي اني ولا عمري كله داخل علاقة اونلاين غير مره وحده قبل و مجانت علاقة من صدك بس انتي صرتيلي ملاذ و وياچ مااحس انو صدك هاي علاقة اونلاين و بيناتنه مسافات احسچ يمي يعني حتى فراغ المسافات انتي سادته و انتي بعيده.
+      </div>
+
+      <div class="menu-grid">
+        <button class="menu-btn" onclick="openSection('garden')">
+          <span>بستان تفنوسه 🌹</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('music')">
+          <span>عالمنه الخاص 🎵</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('hearts')">
+          <span>عداد هموم كلبي 🤍</span>
+          <span>←</span>
+        </button>
+
+        <button class="menu-btn" onclick="openSection('letter')">
+          <span>كلام حاب اگوله الج 💌</span>
+          <span>←</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- قسم بستان تفنوسة -->
+    <div id="section-garden" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="gallery-container">
+        <div class="photo-card">
+          <img src="Rose.jpeg" alt="وردايتي الاعشقها">
+          <p>وردايتي الاعشقها❤️‍🩹</p>
+        </div>
+        <div class="photo-card">
+          <img src="hanunti.jpeg" alt="حنين">
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم عالمنه الخاص (الأغاني) -->
+    <div id="section-music" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      
+      <div class="snoopy-wrapper">
+        <img src="snoopy.jpeg" class="snoopy-img" alt="سنوبي">
+        <div class="snoopy-text">
+          كل كلمة بذن الاغاني تذكرني بيج يروحي من الدنيه انتي اختاري الاغنيه الي ترديها و اسمعيها وي سنوبي 🐾
+        </div>
+      </div>
+
+      <div class="playlist" id="playlist">
+        <!-- الأغاني المحددة بـ JS -->
+      </div>
+      <audio id="audioPlayer"></audio>
+    </div>
+
+    <!-- قسم عداد هموم كلبي -->
+    <div id="section-hearts" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="penguin-section">
+        <div class="penguin-wrapper">
+          <svg class="penguin-svg" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="62" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <ellipse cx="98" cy="155" rx="14" ry="7" fill="#ff9800"/>
+            <path d="M40 80 C 35 130 45 152 80 152 C 115 152 125 130 120 80 C 120 40 105 25 80 25 C 55 25 40 40 40 80 Z" fill="#263238"/>
+            <path d="M52 85 C 48 125 55 145 80 145 C 105 145 112 125 108 85 C 108 55 98 42 80 42 C 62 42 52 55 52 85 Z" fill="#ffffff"/>
+            <ellipse cx="68" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="66" cy="63" r="2" fill="#fff"/>
+            <ellipse cx="92" cy="65" rx="5" ry="7" fill="#000"/>
+            <circle cx="90" cy="63" r="2" fill="#fff"/>
+            <ellipse cx="60" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <ellipse cx="100" cy="74" rx="6" ry="4" fill="#ff80ab" opacity="0.6"/>
+            <polygon points="75,70 85,70 80,78" fill="#ffa726"/>
+            <path d="M78 78 Q 80 82 82 78" fill="none" stroke="#e65100" stroke-width="1.5"/>
+            <path d="M42 85 Q 52 105 65 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+            <path d="M118 85 Q 108 105 95 105" fill="none" stroke="#263238" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+
+          <div class="floating-heart" style="top: 25%; right: 15%;">🤍</div>
+          <div class="floating-heart" style="top: 15%; right: 5%; animation-delay: 0.7s;">💗</div>
+        </div>
+
+        <h3 style="color: var(--accent-color); margin-bottom: 5px;">عداد ايامي و اني بدون روحي 😔</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sub); margin-top: 5px;">
+          صارلنه هلگد بعاد عن بعض و ان شاء الله ما تطول هاي المدة اكثر
+        </p>
+        
+        <div class="counter-box">
+          <div class="counter-digits">
+            <div class="counter-item"><div id="days">0</div><span>يوم</span></div>
+            <div class="counter-item"><div id="hours">0</div><span>ساعة</span></div>
+            <div class="counter-item"><div id="minutes">0</div><span>دقيقة</span></div>
+            <div class="counter-item"><div id="seconds">0</div><span>ثانية</span></div>
+          </div>
+        </div>
+
+        <div class="stop-btn-box">
+          <button class="stop-btn" onclick="toggleCounter()">STOP 🛑</button>
+          <div class="stop-text">
+            راح يضل يعد هذا العداد لحد اليوم الي ترجعلي روحي بيه يلا نوگفه
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الرسالة -->
+    <div id="section-letter" class="section-page">
+      <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
+      <div class="penguin-section">
+        <h3 style="color: var(--accent-color); margin-bottom: 5px;">كلام حاب اگوله الج 💌</h3>
+        <p style="color: var(--pink-glow); font-size: 1.1rem; font-weight: 600; margin-top: 10px;">
+          باباتي حبيبة روحي نجمايتي
+        </p>
+
+        <div class="message-text">
+حالياً وللابد حنونتي صرتيلي اعز ما املك وأغلى ما املك انتي روحي كلها دنيتي سندي املي بالحياة ملجأي و البيت الدافي لروحي طمأنينتي و اهلي و راحتي و my safe home و كلشي صرتي بحياتي انتي السبب الوحيد الي يغير مودي دائماً و الي يخليني احب روحي اكثر والوحيده الي دائماً ببالي و ما تطلع من راسي الوحيده الي اخاف عليها اكثر من روحي لان بدونها اني ولاشي حنوني انتي احلى شي صار بحياتي سيف بعمره ما حب شخص لهاي الدرجه بالواقع اما عالنت ف جنت مستحيل احب شخص اصلا و انتي خليتي المستحيل يصير شي عادي و كدرت احبج بشكل يعني صدك محد يكدر يعرفه غير الله سبحانه و محد حرفيا محد لا بالواقع ولا اونلاين و حتى لو يكون اقرب شخص الي و اشوفه يومياً هم ما راح يخليني احبه بكد ما حبيتج انتي من صدك زرعتي الامل بروحي خليتيني انتظرچ خليتيني اصبر رغم اكره الصبر خليتيني اسولف كلشي و اني مرتاح و انتي اكثر وحده تعرفين اني مااحب اسولف عن البداخلي اغار عليج من اصغر شي بالدنيه وغيرتي توجع و ادري بيج الي اصلاً بس هم اغار مااريد احد يحس بالجاي احسه وياج لهل درجة اني مهووس بيج و اريدج اعشقج حنين اعشقج هواي اتمنى ما اخسرج اتمنى من كل كلبي ربي يديمج و يحفظج الي طول عمري حبيبة روحي و عمري بنوتة گلبي انتي.
+        </div>
+
+        <div class="signature">
+          مو بس هسه مو بس بعد سنة حتى بأخر سبع ثواني قبل موتي راح اختارج انتي يروحي من الدنيه انتي
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function id(elemId) { return document.getElementById(elemId); }
+
+    // النجوم
+    function createStars() {
+      const container = id('starsContainer');
+      if(!container) return;
+      for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+        container.appendChild(star);
+      }
+    }
+    createStars();
+
+    let failedAttempts = 0;
+
+    function moveFocus(current, nextId, prevId) {
+      const currentEl = id('p' + current);
+      if (currentEl.value.length === 1 && nextId) {
+        id(nextId).focus();
+      }
+      checkPasscode();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace') {
+        const active = document.activeElement;
+        if (active && active.id && active.id.startsWith('p') && active.value === '') {
+          const num = parseInt(active.id.replace('p', ''));
+          if (num > 1) {
+            const prev = id('p' + (num - 1));
+            prev.focus();
+            prev.value = '';
+          }
+        }
+      }
+    });
+
+    function checkPasscode() {
+      const pass = id('p1').value + id('p2').value + id('p3').value + id('p4').value;
+      if (pass.length === 4) {
+        if (pass === '0624') {
+          id('lock-screen').style.display = 'none';
+          id('main-screen').style.display = 'flex';
+          id('errorMsg').innerText = '';
+        } else {
+          failedAttempts++;
+          id('errorMsg').innerText = 'ولچ عصري مخچ شوي 😂';
+          if (failedAttempts >= 2) {
+            id('hintMsg').style.display = 'block';
+          }
+          setTimeout(() => {
+            id('p1').value = ''; id('p2').value = '';
+            id('p3').value = ''; id('p4').value = '';
+            id('p1').focus();
+          }, 800);
+        }
+      }
+    }
+
+    function openSection(sec) {
+      id('main-screen').style.display = 'none';
+      document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
+      id('section-' + sec).style.display = 'flex';
+    }
+
+    function goHome() {
+      document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
+      id('main-screen').style.display = 'flex';
+    }
+
+    const songs = [
+      { title: "مولاتي", src: "Mp3.1.mp3" },
+      { title: "كلمة", src: "Mp3.2.mp3" },
+      { title: "دعوة أمي", src: "Mp3.3.mp3" },
+      { title: "أحلى حاجة فيكي", src: "Mp3.4.mp3" },
+      { title: "عدم", src: "Mp3.5.mp3" },
+      { title: "حنيت", src: "Mp3.6.mp3" },
+      { title: "Lovesong", src: "Mp3.7.mp3" },
+      { title: "Those Eyes", src: "Mp3.8.mp3" }
+    ];
+
+    let currentTrack = -1;
+    const audio = id('audioPlayer');
+
+    function loadPlaylist() {
+      const container = id('playlist');
+      if(!container) return;
+      container.innerHTML = '';
+      songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'track-item' + (currentTrack === index ? ' active' : '');
+        item.onclick = () => playSong(index);
+        item.innerHTML = `
+          <div class="track-title">${song.title}</div>
+          <div class="play-icon">${currentTrack === index && !audio.paused ? '⏸' : '▶'}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function playSong(index) {
+      if (currentTrack === index) {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      } else {
+        currentTrack = index;
+        audio.src = songs[index].src;
+        audio.play();
+      }
+      loadPlaylist();
+    }
+
+    if(audio) {
+      audio.onended = () => {
+        currentTrack = (currentTrack + 1) % songs.length;
+        playSong(currentTrack);
+      };
+    }
+
+    loadPlaylist();
+
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 14);
+    let isStopped = false;
+
+    function updateCounter() {
+      if (isStopped) return;
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      if(id('days')) id('days').innerText = days;
+      if(id('hours')) id('hours').innerText = hours;
+      if(id('minutes')) id('minutes').innerText = minutes;
+      if(id('seconds')) id('seconds').innerText = seconds;
+    }
+
+    function toggleCounter() {
+      isStopped = !isStopped;
+      alert(isStopped ? "راح يضل يعد هذا العداد لحد اليوم الي ترجعلي روحي بيه يلا نوگفه 🤍" : "تم استئناف العداد!");
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
+</body>
+</html>
