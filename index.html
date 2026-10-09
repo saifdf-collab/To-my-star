@@ -383,70 +383,91 @@
       line-height: 1.5;
     }
 
-    /* حركة البطريق المجسّم 3D للرسالة */
+    /* مسرح حركة البطريق المتقدم والمكبر (تنفذ مرة واحدة لكل زيارة) */
     .penguin-3d-stage {
       position: relative;
       width: 100%;
-      height: 160px;
+      height: 170px;
       display: flex;
       justify-content: center;
       align-items: center;
-      perspective: 800px;
       overflow: hidden;
       margin-bottom: 10px;
     }
 
     .penguin-3d-actor {
-      width: 110px;
-      height: 120px;
-      animation: penguin3DAction 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-      transform-style: preserve-3d;
+      width: 140px;
+      height: 150px;
+      opacity: 0;
+      transform: scale(0.1);
     }
 
-    @keyframes penguin3DAction {
+    /* أنيميشن البطريق وهو يكبر ويركض نحو الشاشة مرة واحدة */
+    .animate-penguin {
+      animation: penguinApproachOnce 3.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes penguinApproachOnce {
       0% {
         opacity: 0;
-        transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 100px, -200px) rotateY(0deg);
+        transform: scale(0.1) translateY(40px) rotate(-5deg);
       }
-      15% {
+      20% {
         opacity: 1;
-        transform: scale3d(1.1, 1.1, 1.1) translate3d(0, 0, 50px) rotateY(360deg);
-      }
-      35% {
-        transform: scale3d(1, 1, 1) translate3d(0, -10px, 0) rotateZ(-10deg);
+        transform: scale(0.4) translateY(20px) rotate(5deg);
       }
       50% {
-        transform: scale3d(1.35, 1.35, 1.35) translate3d(0, 5px, 120px) rotateX(15deg);
+        transform: scale(0.8) translateY(-5px) rotate(-3deg);
       }
       70% {
-        transform: scale3d(0.9, 0.9, 0.9) translate3d(-60px, 10px, -30px) rotateY(-180deg);
-      }
-      88% {
         opacity: 1;
-        transform: scale3d(0.5, 0.5, 0.5) translate3d(120px, -80px, -100px) rotateY(180deg);
+        transform: scale(1.35) translateY(-15px) rotate(0deg);
+      }
+      85% {
+        opacity: 0.9;
+        transform: scale(1.5) translateY(-20px) rotate(2deg);
       }
       100% {
         opacity: 0;
-        transform: scale3d(0, 0, 0) translate3d(150px, -100px, -300px) rotateY(360deg);
+        transform: scale(0) translateY(-50px);
       }
     }
 
-    /* البوسة المندفعة للشاشة */
+    /* البوسة تظهر وتختفي مرة واحدة مع وصول البطريق */
     .screen-kiss-heart {
       position: absolute;
-      top: 50%;
+      top: 45%;
       left: 50%;
-      font-size: 3rem;
+      font-size: 3.5rem;
       opacity: 0;
       pointer-events: none;
-      animation: bigKissPulse 6s ease-in-out infinite;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.1);
     }
 
-    @keyframes bigKissPulse {
-      0%, 40% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
-      50% { opacity: 0.95; transform: translate(-50%, -50%) scale(2.8); filter: drop-shadow(0 0 20px #ff4081); }
-      65%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(3.5); filter: blur(10px); }
+    .animate-kiss {
+      animation: bigKissOnce 3.8s ease-in-out forwards;
+    }
+
+    @keyframes bigKissOnce {
+      0%, 60% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      72% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(2.8);
+        filter: drop-shadow(0 0 25px #ff4081);
+      }
+      88% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(3.2);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(4);
+        filter: blur(12px);
+      }
     }
 
     /* قسم الرسالة */
@@ -501,7 +522,7 @@
       </div>
 
       <div class="welcome-note">
-        شوفي اني ولا عمري كله داخل علاقة اونلاين غير مره وحده قبل و مجانت علاقة من صدك بس وياج انتي غير انتي صرتيلي ملاذ و وياچ مااحس انو صدك هاي علاقة اونلاين و بيناتنه مسافات احسچ يمي يعني حتى فراغ المسافات انتي سادته و انتي بعيده.
+        شوفي اني ولا عمري كله داخل علاقة اونلاين غير مره وحده قبل و مجانت علاقة من صدك بس انتي غير انتب صرتيلي ملاذ وياچ مااحس انو صدك هاي علاقة اونلاين و بيناتنه مسافات احسچ يمي يعني حتى فراغ المسافات انتي سادته و انتي بعيده.
       </div>
 
       <div class="menu-grid">
@@ -516,7 +537,7 @@
         </button>
 
         <button class="menu-btn" onclick="openSection('hearts')">
-          <span>عداد ايامي بدون روحي </span>
+          <span>عداد هموم كلبي </span>
           <span>←</span>
         </button>
 
@@ -586,15 +607,14 @@
       </div>
     </div>
 
-    <!-- قسم الرسالة مع أنيميشن البطريق المجسم -->
+    <!-- قسم الرسالة مع أنيميشن البطريق المتقدم والمكبر -->
     <div id="section-letter" class="section-page">
       <button class="back-btn" onclick="goHome()">→ العودة للرئيسية</button>
       <div class="penguin-section">
 
-        <!-- حركية البطريق ثلاثي الأبعاد والقفز والبوسة -->
         <div class="penguin-3d-stage">
-          <div class="screen-kiss-heart">💋</div>
-          <svg class="penguin-3d-actor" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+          <div class="screen-kiss-heart" id="kissHeart">💋</div>
+          <svg class="penguin-3d-actor" id="penguinActor" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <radialGradient id="gradBody" cx="30%" cy="30%" r="70%">
                 <stop offset="0%" stop-color="#37474f"/>
@@ -708,6 +728,19 @@
       id('main-screen').style.display = 'none';
       document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
       id('section-' + sec).style.display = 'flex';
+
+      // تشغيل أنيميشن البطريق والبوسة مرة واحدة فقط عند الدخول لقسم الرسالة
+      if (sec === 'letter') {
+        const p = id('penguinActor');
+        const k = id('kissHeart');
+        if (p && k) {
+          p.classList.remove('animate-penguin');
+          k.classList.remove('animate-kiss');
+          void p.offsetWidth; // إعادة تهيئة الأنيميشن
+          p.classList.add('animate-penguin');
+          k.classList.add('animate-kiss');
+        }
+      }
     }
 
     function goHome() {
