@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هله بحبيبة روحي 🍒✨</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e1a;
+            --rose-main: #f43f5e;
+            --rose-soft: #fecdd3;
+            --vanilla-cream: #fef3c7;
+            --vanilla-soft: #fffbeb;
+            --text-light: #f8fafc;
+            --text-sub: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --card-border: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Starry Night Effect */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: var(--opacity);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Main Glass Card */
+        .app-container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 63, 94, 0.25);
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2.title {
+            font-size: 22px;
+            color: var(--rose-soft);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        p.subtitle {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .snoopy-badge {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(254, 205, 211, 0.4));
+        }
+
+        /* Keypad Styling */
+        .pin-display {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .pin-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--rose-main);
+            transition: 0.2s;
+        }
+
+        .pin-dot.filled {
+            background-color: var(--rose-main);
+            box-shadow: 0 0 12px var(--rose-main);
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-light);
+            border-radius: 50%;
+            cursor: pointer;
+            width: 58px;
+            height: 58px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .key:active {
+            background: var(--rose-main);
+            transform: scale(0.92);
+        }
+
+        .error-msg {
+            color: #fb7185;
+            font-size: 13px;
+            margin-top: 15px;
+            min-height: 20px;
+            font-weight: bold;
+        }
+
+        .hint-box {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px dashed var(--rose-main);
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--rose-soft);
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 16px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: right;
+        }
+
+        .menu-card:hover {
+            background: rgba(244, 63, 94, 0.18);
+            border-color: var(--rose-main);
+            transform: translateY(-2px);
+        }
+
+        .menu-icon {
+            font-size: 26px;
+        }
+
+        .menu-text h4 {
+            font-size: 15px;
+            color: var(--rose-soft);
+        }
+
+        .menu-text p {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* Timer UI */
+        .timer-box {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .timer-unit {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 10px 5px;
+            border-radius: 14px;
+        }
+
+        .timer-num {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--rose-main);
+            display: block;
+        }
+
+        .timer-label {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        /* Garden Section */
+        .flowers-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .flower-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flower-frame {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid var(--rose-soft);
+            overflow: hidden;
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+        }
+
+        .flower-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flower-caption {
+            font-size: 14px;
+            color: var(--vanilla-cream);
+            font-weight: bold;
+        }
+
+        /* Music Player */
+        .vinyl-container {
+            margin: 15px 0;
+        }
+
+        .vinyl {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle, #222 30%, #111 70%);
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            border: 4px solid #333;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: spin 5s linear infinite;
+            animation-play-state: paused;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+        }
+
+        .vinyl.playing {
+            animation-play-state: running;
+        }
+
+        .vinyl::after {
+            content: '';
+            width: 28px;
+            height: 28px;
+            background: var(--rose-main);
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .playlist {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+            text-align: right;
+            max-height: 210px;
+            overflow-y: auto;
+            padding-left: 5px;
+        }
+
+        .track-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid transparent;
+            transition: 0.2s;
+        }
+
+        .track-item:hover, .track-item.active {
+            background: rgba(244, 63, 94, 0.2);
+            border-color: var(--rose-main);
+            color: var(--rose-soft);
+        }
+
+        /* Letter Box */
+        .letter-content {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed var(--rose-main);
+            padding: 18px;
+            border-radius: 20px;
+            text-align: right;
+            line-height: 1.85;
+            font-size: 13.5px;
+            color: var(--text-light);
+            margin: 15px 0;
+            white-space: pre-line;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .letter-sign {
+            margin-top: 15px;
+            font-size: 13px;
+            color: var(--vanilla-cream);
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--rose-main);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #e11d48;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--text-sub);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars-container" id="starsContainer"></div>
+
+<div class="app-container">
+
+    <!-- PASSCODE SCREEN -->
+    <div id="page-lock" class="page active">
+        <div class="snoopy-badge">🐾</div>
+        <h2 class="title">هله بحبيبة روحي</h2>
+        <p class="subtitle">كرزايتي الباسورد بلا زحمة 🍒</p>
+
+        <div class="pin-display">
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+        </div>
+
+        <div class="keypad">
+            <button class="key" onclick="pressKey('1')">1</button>
+            <button class="key" onclick="pressKey('2')">2</button>
+            <button class="key" onclick="pressKey('3')">3</button>
+            <button class="key" onclick="pressKey('4')">4</button>
+            <button class="key" onclick="pressKey('5')">5</button>
+            <button class="key" onclick="pressKey('6')">6</button>
+            <button class="key" onclick="pressKey('7')">7</button>
+            <button class="key" onclick="pressKey('8')">8</button>
+            <button class="key" onclick="pressKey('9')">9</button>
+            <button class="key" onclick="clearPin()">C</button>
+            <button class="key" onclick="pressKey('0')">0</button>
+            <button class="key" onclick="checkPin()">❤️</button>
+        </div>
+
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="hint-box" id="hintBox">
+            حبيبة عمري اني يا تاريخ احبه؟
+        </div>
+    </div>
+
+    <!-- MAIN MENU -->
+    <div id="page-menu" class="page">
+        <h2 class="title">هله بنوتة گلبي 🍒</h2>
+        <p class="subtitle">
+            شوفي اني ولا عمري كله داخل علاقة اونلاين غير مره وحده قبل و مجانت علاقة من صدك بس انتي صرتيلي ملاذ و وياچ مااحس انو صدك هاي علاقة اونلاين و بيناتنه مسافات احسچ يمي يعني حتى فراغ المسافات انتي سادته و انتي بعيده ✨
+        </p>
+
+        <div class="menu-grid">
+            <div class="menu-card" onclick="showPage('page-counter')">
+                <span class="menu-icon">⏳</span>
+                <div class="menu-text">
+                    <h4>عداد هموم كلبي</h4>
+                    <p>حسبة الوقت والمسافة الحنونة</p>
+                </div>
+            </div>
+
+            <div class="menu-card" onclick="showPage('page-garden')">
+                <span class="menu-icon">🌸</span>
+                <div class="menu-text">
+                    <h4>بستان تفنوسة</h4>
+                    <p>عالم الورد الأبيض، الفانيلا، وعيونج</p>
+                </div>
+            </div>
+
+            <div class="menu-card" onclick="showPage('page-music')">
+                <span class="menu-icon">🎧</span>
+                <div class="menu-text">
+                    <h4>عالمنه الخاص</h4>
+                    <p>أغانينا النازكة وي سنوبي 🐾</p>
+                </div>
+            </div>
+
+            <div class="menu-card" onclick="showPage('page-letter')">
+                <span class="menu-icon">💌</span>
+                <div class="menu-text">
+                    <h4>كلام حاب اگوله الج</h4>
+                    <p>رسالة الملاذ والبيت الدافي</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COUNTER -->
+    <div id="page-counter" class="page">
+        <h2 class="title">عداد هموم كلبي ⏳</h2>
+        <p class="subtitle">صارلنه هلگد بعاد عن بعض و ان شاء الله ما تطول هاي المدة اكثر</p>
+
+        <div class="timer-box">
+            <div class="timer-unit">
+                <span class="timer-num" id="d-days">14</span>
+                <span class="timer-label">يوم</span>
+            </div>
+            <div class="timer-unit">
+                <span class="timer-num" id="d-hours">00</span>
+                <span class="timer-label">ساعة</span>
+            </div>
+            <div class="timer-unit">
+                <span class="timer-num" id="d-mins">00</span>
+                <span class="timer-label">دقيقة</span>
+            </div>
+            <div class="timer-unit">
+                <span class="timer-num" id="d-secs">00</span>
+                <span class="timer-label">ثانية</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="stopCounter()">STOP 🛑</button>
+
+        <p class="subtitle" style="margin-top: 15px; font-size: 12px; color: var(--rose-soft);">
+            راح يضل يعد هذا العداد لحد اليوم الي ترجعلي روحي بيه يلا نوگفه ❤️
+        </p>
+
+        <button class="btn btn-back" onclick="showPage('page-menu')">رجوع للرئيسية</button>
+    </div>
+
+    <!-- GARDEN -->
+    <div id="page-garden" class="page">
+        <h2 class="title">بستان تفنوسة 🌸</h2>
+        
+        <div class="flowers-wrapper">
+            <!-- الورد الأبيض والفانيلا -->
+            <div class="flower-item">
+                <div class="flower-frame">
+                    <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=400" alt="ورد أبيض وفانيلا">
+                </div>
+                <div class="flower-caption">الورد الي تحبينه وريحة الفانيلا 🍦🤍</div>
+            </div>
+
+            <!-- صورتها المعطاة مع بوكيه الورد -->
+            <div class="flower-item">
+                <div class="flower-frame">
+                    <img src="https://i.ibb.co/6Pq9Z2k/image.png" alt="وردايتي">
+                </div>
+                <div class="flower-caption">وردايتي الاعشقها ❤️‍🩹</div>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showPage('page-menu')">رجوع للرئيسية</button>
+    </div>
+
+    <!-- MUSIC PLAYER -->
+    <div id="page-music" class="page">
+        <h2 class="title">عالمنه الخاص 🎧</h2>
+        <p class="subtitle">
+            كل كلمة بذن الاغاني تذكرني بيج يروحي من الدنيه انتي اختاري الاغنيه الي ترديها و اسمعيها وي سنوبي 🐾
+        </p>
+
+        <div class="vinyl-container">
+            <div class="vinyl" id="vinyl"></div>
+        </div>
+
+        <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+        <div class="playlist">
+            <div class="track-item active" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', this)">
+                <span>🎵 مولاتي - BigSam</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', this)">
+                <span>🎵 عدم - غيث صباح</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', this)">
+                <span>🎵 دعوة أمي - علي صابر</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', this)">
+                <span>🎵 Those Eyes - New West</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', this)">
+                <span>🎵 أحلى حاجة فيكي - محمد حماقي</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', this)">
+                <span>🎵 حنيت - أحمد المصلاوي</span>
+                <span>▶</span>
+            </div>
+            <div class="track-item" onclick="playTrack('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', this)">
+                <span>🎵 كلمة - رامي صبري</span>
+                <span>▶</span>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showPage('page-menu')">رجوع للرئيسية</button>
+    </div>
+
+    <!-- LETTER -->
+    <div id="page-letter" class="page">
+        <h2 class="title">كلام حاب اگوله الج 💌</h2>
+        
+        <div class="letter-content">
+<b>باباتي حبيبة روحي نجمايتي ✨</b>
+
+حالياً وللابد حنونتي صرتيلي اعز ما املك وأغلى ما املك انتي روحي كلها دنيتي سندي املي بالحياة ملجأي و البيت الدافي لروحي طمأنينتي و اهلي و راحتي و my safe home و كلشي صرتي بحياتي انتي السبب الوحيد الي يغير مودي دائماً و الي يخليني احب روحي اكثر والوحيده الي دائماً ببالي و ما تطلع من راسي الوحيده الي اخاف عليها اكثر من روحي لان بدونها اني ولاشي حنوني انتي احلى شي صار بحياتي سيف بعمره ما حب شخص لهاي الدرجه بالواقع اما عالنت ف جنت مستحيل احب شخص اصلا و انتي خليتي المستحيل يصير شي عادي و كدرت احبج بشكل يعني صدك محد يكدر يعرفه غير الله سبحانه و محد حرفيا محد لا بالواقع ولا اونلاين و حتى لو يكون اقرب شخص الي و اشوفه يومياً هم ما راح يخليني احبه بكد ما حبيتج انتي من صدك زرعتي الامل بروحي خليتيني انتظرچ خليتيني اصبر رغم اكره الصبر خليتيني اسولف كلشي و اني مرتاح و انتي اكثر وحده تعرفين اني مااحب اسولف عن البداخلي اغار عليج من اصغر شي بالدنيه وغيرتي توجع و ادري بيج الي اصلاً بس هم اغار مااريد احد يحس بالجاي احسه وياج لهل درجة اني مهووس بيج و اريدج اعشقج حنين اعشقج هواي اتمنى ما اخسرج اتمنى من كل كلبي ربي يديمج و يحفظج الي طول عمري حبيبة روحي و عمري بنوتة گلبي انتي.
+        </div>
+
+        <div class="letter-sign">
+            مو بس هسه مو بس بعد سنة حتى بأخر سبع ثواني قبل موتي راح اختارج انتي يروحي من الدنيه انتي ❤️
+        </div>
+
+        <button class="btn btn-back" onclick="showPage('page-menu')">رجوع للرئيسية</button>
+    </div>
+
+</div>
+
+<script>
+    // Stars Animation Setup
+    const starsContainer = document.getElementById('starsContainer');
+    for (let i = 0; i < 65; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.width = `${Math.random() * 3.5 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+        star.style.setProperty('--opacity', Math.random());
+        starsContainer.appendChild(star);
+    }
+
+    // Passcode Logic
+    const correctPin = "0624";
+    let currentPin = "";
+    let failCount = 0;
+
+    function pressKey(num) {
+        if (currentPin.length < 4) {
+            currentPin += num;
+            updateDots();
+        }
+        if (currentPin.length === 4) {
+            setTimeout(checkPin, 180);
+        }
+    }
+
+    function clearPin() {
+        currentPin = "";
+        updateDots();
+    }
+
+    function updateDots() {
+        const dots = document.querySelectorAll('.pin-dot');
+        dots.forEach((dot, index) => {
+            if (index < currentPin.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+        });
+    }
+
+    function checkPin() {
+        if (currentPin === correctPin) {
+            showPage('page-menu');
+        } else {
+            failCount++;
+            document.getElementById('errorMsg').innerText = "ولچ عصري مخچ شوي 😜";
+            clearPin();
+
+            if (failCount >= 2) {
+                document.getElementById('hintBox').style.display = 'block';
+            }
+        }
+    }
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    // Counter Initialization (14 days base)
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 14);
+
+    setInterval(updateTimer, 1000);
+
+    function updateTimer() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('d-days').innerText = days;
+        document.getElementById('d-hours').innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById('d-mins').innerText = mins < 10 ? '0' + mins : mins;
+        document.getElementById('d-secs').innerText = secs < 10 ? '0' + secs : secs;
+    }
+
+    function stopCounter() {
+        alert("راح يضل يعد هذا العداد لحد اليوم الي ترجعلي روحي بيه يلا نوگفه ❤️");
+    }
+
+    // Music Player
+    const audioPlayer = document.getElementById('audioPlayer');
+    const vinyl = document.getElementById('vinyl');
+
+    function playTrack(url, element) {
+        document.querySelectorAll('.track-item').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+
+        audioPlayer.src = url;
+        audioPlayer.play();
+        vinyl.classList.add('playing');
+    }
+</script>
+</body>
+</html>
