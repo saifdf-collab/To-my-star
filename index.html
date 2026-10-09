@@ -434,7 +434,7 @@
     }
 
     /* البوسة تظهر وتختفي مرة واحدة مع وصول البطريق */
-        .screen-kiss-heart {
+    .screen-kiss-heart {
       position: absolute;
       top: 45%;
       left: 50%;
@@ -444,7 +444,6 @@
       transform: translate(-50%, -50%) scale(0.1);
       z-index: 20;
     }
-
 
     .animate-kiss {
       animation: bigKissOnce 3.8s ease-in-out forwards;
@@ -520,7 +519,7 @@
     <!-- الشاشة الرئيسية -->
     <div id="main-screen">
       <div class="header-title">
-        <h1>هله بنوتة گلبي </h1>
+        <h1>هله بنوتة گلبي 🍦</h1>
       </div>
 
       <div class="welcome-note">
@@ -539,7 +538,7 @@
         </button>
 
         <button class="menu-btn" onclick="openSection('hearts')">
-          <span>عداد هموم كلبي </span>
+          <span>عداد هموم كلبي 🤍</span>
           <span>←</span>
         </button>
 
@@ -592,7 +591,7 @@
         </p>
         
         <div class="counter-box">
-          <div class="counter-digits">
+          <div class="counter-digits" style="direction: ltr;">
             <div class="counter-item"><div id="days">0</div><span>يوم</span></div>
             <div class="counter-item"><div id="hours">0</div><span>ساعة</span></div>
             <div class="counter-item"><div id="minutes">0</div><span>دقيقة</span></div>
@@ -731,14 +730,13 @@
       document.querySelectorAll('.section-page').forEach(el => el.style.display = 'none');
       id('section-' + sec).style.display = 'flex';
 
-      // تشغيل أنيميشن البطريق والبوسة مرة واحدة فقط عند الدخول لقسم الرسالة
       if (sec === 'letter') {
         const p = id('penguinActor');
         const k = id('kissHeart');
         if (p && k) {
           p.classList.remove('animate-penguin');
           k.classList.remove('animate-kiss');
-          void p.offsetWidth; // إعادة تهيئة الأنيميشن
+          void p.offsetWidth;
           p.classList.add('animate-penguin');
           k.classList.add('animate-kiss');
         }
@@ -804,13 +802,8 @@
 
     loadPlaylist();
 
-       // تاريخ بداية ثابت لا يتغير عند إغلاق أو فتح الصفحة
-    const startDate = new Date("2026-09-26T00:00:00");
-     
-startDate.setDate(startDate.getDate() - 14);
-startDate.setHours(startDate.getHours() - 2);
-startDate.setMinutes(startDate.getMinutes() - 07);
-
+    // تاريخ بداية ثابت دقيق جداً (تاريخ محدد ومستمر بالثواني)
+    const startDate = new Date("2026-09-27T21:17:05");
     let isStopped = false;
 
     function updateCounter() {
