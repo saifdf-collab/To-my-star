@@ -804,12 +804,12 @@
 
     loadPlaylist();
 
-        // تاريخ بداية ثابت لا يتغير عند إغلاق أو إعادة فتح الصفحة
-    const startDate = new Date(1790374500000);
-
+       // تاريخ بداية ثابت لا يتغير عند إغلاق أو فتح الصفحة
+    const startDate = new Date("2026-09-26T00:00:00");
+     
 startDate.setDate(startDate.getDate() - 14);
 startDate.setHours(startDate.getHours() - 2);
-startDate.setMinutes(startDate.getMinutes() - 02);
+startDate.setMinutes(startDate.getMinutes() - 07);
 
     let isStopped = false;
 
